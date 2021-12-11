@@ -251,5 +251,11 @@ public class Bomb extends Entity implements Destroy {
         image = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1,
                 Sprite.bomb_exploded2, timeExplode--, FPS).getFxImage();
     }
+    
+    public static void longerFlame() {
+        if (presentFlameLength < Flame.maxLength) {
+            presentFlameLength ++;
+        }
+    }
 }
 
