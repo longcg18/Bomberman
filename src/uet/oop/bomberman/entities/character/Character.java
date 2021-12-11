@@ -225,19 +225,8 @@ public abstract class Character extends Entity implements Destroy, Move {
         }
 
 
+        // Check collision with unexplode bomb
         rec = new Rectangle(x, y, SCALED_SIZE, SCALED_SIZE);
-        /*for (Entity entity : bom) {
-            if (!CollisionTest(rec, entity.getRectangle())) {
-                Rectangle tmp = getNextRectangleBomber();
-                if (CollisionTest(tmp, entity.getRectangle())) {
-                    movable = false;
-                    return;
-                }
-            }
-        }
-
-         */
-
         for (int i = 0; i < bom.size(); i++) {
             if (!CollisionTest(rec, bom.get(i).getRectangle())) {
                 Rectangle tmp = getNextRectangleBomber();

@@ -10,6 +10,8 @@ import static uet.oop.bomberman.BombermanGame.bomber;
 import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 
+import static uet.oop.bomberman.Sound.Sound.playMedia;
+import static uet.oop.bomberman.Sound.Sound.*;
 public abstract class Item extends Entity {
     protected boolean Hide = true;
 
@@ -27,6 +29,7 @@ public abstract class Item extends Entity {
     @Override
     public void update() {
         if (CollisionTest(this.getRectangle(), bomber.getRectangle())) {
+            playMedia(getItemSound);
             powerUpBomber();
             Lying = false;
             image = null;

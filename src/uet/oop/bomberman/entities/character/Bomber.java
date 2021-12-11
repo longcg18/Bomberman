@@ -18,7 +18,7 @@ public class Bomber extends Character {
     private final int maxNumberOfBombs = 4;
     private int haveBomb = 1;
 
-    private final int maxSpeed = SCALED_SIZE / 8 * 2;
+    private final int maxSpeed = SCALED_SIZE / 4;
 
     // number of life in a game
     public static int maxLife = 3;
@@ -34,7 +34,7 @@ public class Bomber extends Character {
     public Bomber(int _x, int _y, Image image) {
         super(_x, _y, image);
         movingState = MovingState.STANDING;
-        velocity = SCALED_SIZE / 8;
+        velocity = SCALED_SIZE / 6;
         respondX = x;
         respondY = y;
     }
