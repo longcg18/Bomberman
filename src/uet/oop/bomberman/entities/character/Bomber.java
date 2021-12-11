@@ -175,4 +175,14 @@ public class Bomber extends Character {
         super.render(graphicsContext);
         bom.forEach(graphic -> graphic.render(graphicsContext));
     }
+    
+    public void speedUp() {
+        velocity += SCALED_SIZE / 8;
+    }
+
+    public void moreBomb() {
+        if (haveBomb < maxNumberOfBombs) {
+            haveBomb++;
+        }
+    }
 }
