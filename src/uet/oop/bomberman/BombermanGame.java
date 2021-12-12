@@ -34,7 +34,7 @@ import java.util.Scanner;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 import static uet.oop.bomberman.entities.character.Bomber.*;
 
-public class BombermanGame extends Application {
+public class BombermanGame {
 
     /**
      * local variables, don't modify
@@ -54,12 +54,14 @@ public class BombermanGame extends Application {
     public static int point;
     public static Portal portal;
 
+    /*
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
 
-    @Override
-    public void start(Stage stage) {
+     */
+
+    public Scene startGame(Stage stage) {
         stage.setTitle("Bomberman Go!");
         level = 1;
         point = 0;
@@ -133,7 +135,8 @@ public class BombermanGame extends Application {
         scene.setOnKeyReleased((KeyEvent key) -> bomber.Standing());
 
         timer.start();
-        stage.show();
+        return scene;
+        //stage.show();
     }
 
     public void createMap() {
