@@ -28,8 +28,6 @@ public class Doll extends Enemy {
             randomMovingState();
             timeChangeMoveState = FPS * 3;
         }
-
-
     }
 
     public void changeSpeed() {

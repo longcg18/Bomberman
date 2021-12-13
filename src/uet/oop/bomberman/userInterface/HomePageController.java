@@ -56,7 +56,7 @@ public class HomePageController implements Initializable {
         ImageView imageView = new ImageView(instructionImage);
         stackPane.getChildren().add(imageView);
         stage.setTitle("Bomberman Instruction");
-        stage.setScene(new Scene(stackPane, 800, 600));
+        stage.setScene(new Scene(stackPane, 1280, 600));
         stage.show();
     }
 

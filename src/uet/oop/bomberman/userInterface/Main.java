@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+import static uet.oop.bomberman.Sound.Sound.*;
+
 public class Main extends Application {
 
     public static Scene homeScene = showScene("src/uet/oop/bomberman/userInterface/HomePage.fxml");
@@ -48,6 +50,7 @@ public class Main extends Application {
     }
 
     public static void loadHomePage(Stage stage) throws IOException {
+        playMusic(introMusic);
         stage.setResizable(false);
         stage.setTitle("BOMBERMAN UET");
         stage.setScene(homeScene);

@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static uet.oop.bomberman.userInterface.Main.*;
+import static uet.oop.bomberman.Sound.Sound.*;
 
 public class userLoginController extends HomePageController implements Initializable {
 
@@ -27,11 +28,12 @@ public class userLoginController extends HomePageController implements Initializ
     public static BombermanGame bombermanGame = new BombermanGame();
 
     public void setStartButton() {
-
+        introMusic.stop();
         Stage stage = (Stage) startButton.getScene().getWindow();
         Scene scene = bombermanGame.startGame(stage);
         stage.setScene(scene);
         stage.show();
+
     }
 
     @Override

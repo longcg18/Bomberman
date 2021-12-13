@@ -12,6 +12,8 @@ import java.util.List;
 import static uet.oop.bomberman.BombermanGame.FPS;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
+import static uet.oop.bomberman.Sound.Sound.*;
+import static uet.oop.bomberman.Sound.Sound.bomberDieSound;
 
 public class Bomber extends Character {
 
@@ -34,7 +36,7 @@ public class Bomber extends Character {
     public Bomber(int _x, int _y, Image image) {
         super(_x, _y, image);
         movingState = MovingState.STANDING;
-        velocity = SCALED_SIZE / 6;
+        velocity = SCALED_SIZE / 8;
         respondX = x;
         respondY = y;
     }
@@ -61,6 +63,7 @@ public class Bomber extends Character {
             for (int i = 0; i < enemies.size(); i++) {
                 if (CollisionTest(this.getRectangle(), enemies.get(i).getRectangle())) {
                     //die
+                    playMedia(bomberDieSound);
                     deathLoading = true;
                 }
             }
@@ -104,6 +107,7 @@ public class Bomber extends Character {
             if (bomb.isExploding) {
                 if (!deathLoading && bomb.collisionWithCharacter(this)) {
                     // if bomber died by bomb
+                    playMedia(bomberDieSound);
                     System.out.println("Bomber has died");
                     deathLoading = true;
                 }

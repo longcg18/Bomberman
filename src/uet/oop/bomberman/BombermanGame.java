@@ -3,6 +3,7 @@ package uet.oop.bomberman;
 /**
  * import libraries, don't modify
  */
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -24,7 +26,10 @@ import uet.oop.bomberman.entities.character.enemy.Balloom;
 import uet.oop.bomberman.entities.character.enemy.Doll;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.userInterface.Main;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +38,10 @@ import java.util.Scanner;
 
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 import static uet.oop.bomberman.entities.character.Bomber.*;
+
+import static uet.oop.bomberman.Sound.Sound.playMedia;
+import static uet.oop.bomberman.Sound.Sound.loseGameSound;
+import static uet.oop.bomberman.Sound.Sound.winGameSound;
 
 public class BombermanGame {
 
@@ -53,19 +62,18 @@ public class BombermanGame {
     public static int level;
     public static int point;
     public static Portal portal;
+    public static final String GAMEOVERINFO_LOSE = "LOSE";
+    public static final String GAMEOVERINFO_WIN = "WIN";
+    public static final String GAMEOVERINFO_LEVELUP = "LEVELUP";
 
-    /*
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
-
-     */
+    public String GAMEOVERINFO;
 
     public Scene startGame(Stage stage) {
         stage.setTitle("Bomberman Go!");
         level = 1;
         point = 0;
         portal = null;
+        GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
         if (bomber != null) {
             bomber.clearBom();
         }
@@ -75,9 +83,7 @@ public class BombermanGame {
         map = new ArrayList<>();
         items = new ArrayList<>();
         reset();
-
         createMap();
-
         stage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
@@ -87,15 +93,17 @@ public class BombermanGame {
             public void handle(long l) {
                 long start = System.currentTimeMillis();
                 // The update functions
+                updateGameInfoImage();
                 update();
                 render();
-                if (maxLife == 0) {
-                    System.out.println("End game! You Lose!");
-                    stop();
-                }
-                if (portal == null) {
-                    System.out.println("End game! You win!");
-                    stop();
+                if ((GAMEOVERINFO.equals(GAMEOVERINFO_WIN) || GAMEOVERINFO.equals(GAMEOVERINFO_LOSE)) && timeLoadImage == 0) {
+                    //System.out.println("End game! You Lose!");
+                    try {
+                        stop();
+                        Main.loadHomePage(stage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 long realTime = System.currentTimeMillis() - start;
                 if (realTime < timeEachFrame) {
@@ -122,14 +130,27 @@ public class BombermanGame {
 
         scene.setOnKeyPressed(key -> {
             switch (key.getCode()) {
-                case UP: bomber.MoveUp();
-                break;
-                case DOWN:bomber.MoveDown(); break;
-                case LEFT:bomber.MoveLeft(); break;
-                case RIGHT:bomber.MoveRight(); break;
-                case SPACE:bomber.plantBomb(); break;
-                case Z:enemies.clear(); break;
-                case ESCAPE: timer.stop(); break;
+                case UP:
+                    bomber.MoveUp();
+                    break;
+                case DOWN:
+                    bomber.MoveDown();
+                    break;
+                case LEFT:
+                    bomber.MoveLeft();
+                    break;
+                case RIGHT:
+                    bomber.MoveRight();
+                    break;
+                case SPACE:
+                    bomber.plantBomb();
+                    break;
+                case Z:
+                    enemies.clear();
+                    break;
+                case ESCAPE:
+                    timer.stop();
+                    break;
             }
         });
         scene.setOnKeyReleased((KeyEvent key) -> bomber.Standing());
@@ -228,6 +249,7 @@ public class BombermanGame {
         updateItem();
         if (portal != null) portal.update();
         updateMap();
+        passThisLevelOrLose();
     }
 
     public void render() {
@@ -265,13 +287,6 @@ public class BombermanGame {
         }
     }
 
-    private String gameOverInfo() {
-        if (enemies.size() == 0 && portal == null) {
-            return "win";
-        } else
-            return "lose";
-    }
-
     private void updateEnemy() {
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy = enemies.get(i);
@@ -279,11 +294,73 @@ public class BombermanGame {
                 enemy.update();
                 if (!enemy.alive) {
                     point += enemy.getPoint();
-                    System.out.println("Point: "+ point);
+                    System.out.println("Point: " + point);
                     enemies.remove(enemy);
                 }
             }
         }
     }
 
+    private void passThisLevelOrLose() {
+        if (enemies.size() == 0 && portal == null) {
+            level = level + 1;
+            // level 1 : 100điểm, level2: 200 điểm
+            point = point + level * 100;
+            timeLoadImage = FPS * 3;
+            GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
+            if (level > 2) {
+                GAMEOVERINFO = GAMEOVERINFO_WIN;
+                playMedia(winGameSound);
+                timeLoadImage = FPS * 3;
+                System.out.println("Well done, you won this game. Your score: " + this.point);
+                return;
+            }
+            playMedia(winGameSound);
+            bomber.clearBom();
+            items.clear();
+            map.clear();
+            createMap();
+            System.out.println("You won!");
+        } else if (bomber.maxLife == 0) {
+            GAMEOVERINFO = GAMEOVERINFO_LOSE;
+            playMedia(loseGameSound);
+            timeLoadImage = FPS * 3;
+            System.out.println("You have lost. Your score: " + this.point);
+        }
+
+    }
+
+    private void updateGameInfoImage() {
+        Image inforImage = null;
+        if (GAMEOVERINFO.equals(GAMEOVERINFO_LOSE)) {
+            if (timeLoadImage > 0) {
+                timeLoadImage--;
+            }
+            try {
+                inforImage = new Image(new FileInputStream("Resources/image/gameLoseImage.jpg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (timeLoadImage >= 0) gc.drawImage(inforImage, 0, 0);
+        } else if (GAMEOVERINFO.equals(GAMEOVERINFO_WIN)) {
+            if (timeLoadImage > 0) {
+                timeLoadImage--;
+            }
+            try {
+                inforImage = new Image(new FileInputStream("Resources/image/victoryImage.jpg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (timeLoadImage >= 0) gc.drawImage(inforImage, 0 , 0);
+        } else if (GAMEOVERINFO.equals(GAMEOVERINFO_LEVELUP)) {
+            if (timeLoadImage > 0) {
+                timeLoadImage--;
+            }
+            try {
+                 inforImage = new Image(new FileInputStream("Resources/image/levelUpImage.jpg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
