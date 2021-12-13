@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static uet.oop.bomberman.Sound.Sound.*;
 
@@ -17,7 +18,10 @@ public class Main extends Application {
     public static Scene homeScene = showScene("src/uet/oop/bomberman/userInterface/HomePage.fxml");
     public static Scene userLoginScene = showScene("src/uet/oop/bomberman/userInterface/userLogin.fxml");
 
+    public static List<Player> playerList;
+
     public static void main(String[] args) {
+        playerList = new java.util.ArrayList<>();
         Platform.setImplicitExit(false);
         Application.launch(Main.class);
     }

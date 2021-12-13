@@ -43,6 +43,8 @@ import static uet.oop.bomberman.Sound.Sound.playMedia;
 import static uet.oop.bomberman.Sound.Sound.loseGameSound;
 import static uet.oop.bomberman.Sound.Sound.winGameSound;
 
+import static uet.oop.bomberman.userInterface.Main.*;
+
 public class BombermanGame {
 
     /**
@@ -313,7 +315,7 @@ public class BombermanGame {
             GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
             if (level > 2) {
                 GAMEOVERINFO = GAMEOVERINFO_WIN;
-                //System.out.println(GAMEOVERINFO);
+                //playerLists
                 playMedia(winGameSound);
                 timeLoadImage = FPS * 3;
                 System.out.println("Well done, you won this game. Your score: " + this.point);
