@@ -27,13 +27,15 @@ public class userLoginController extends HomePageController implements Initializ
 
     public static BombermanGame bombermanGame = new BombermanGame();
 
+    private String username;
+
     public void setStartButton() {
         introMusic.stop();
+        username = userName.getText();
         Stage stage = (Stage) startButton.getScene().getWindow();
         Scene scene = bombermanGame.startGame(stage);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @Override
@@ -41,11 +43,14 @@ public class userLoginController extends HomePageController implements Initializ
         startButton.setOnAction(actionEvent -> {
             setStartButton();
         });
-
         backButton.setOnAction(actionEvent -> {
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setTitle("HOME PAGE");
             stage.setScene(homeScene);
         });
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }

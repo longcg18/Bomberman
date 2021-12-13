@@ -66,7 +66,6 @@ public class HomePageController implements Initializable {
         instructionButton.setOnAction(actionEvent -> {
             setInstructionButton();
         });
-
         playButton.setOnAction(actionEvent -> {
             try {
                 setPlayButton();
@@ -74,25 +73,19 @@ public class HomePageController implements Initializable {
                 e.printStackTrace();
             }
         });
-
         exitButton.setOnAction(actionEvent -> {
             setExitButton();
         });
-
     }
 
     public void setExitButton() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("EXIT BOMBERMAN");
         alert.setHeaderText("Are you sure? Play one more time please!");
-
         ButtonType yes = new ButtonType("YES", ButtonBar.ButtonData.YES);
         ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
-
         alert.getButtonTypes().setAll(yes, no);
-
         Optional<ButtonType> answer = alert.showAndWait();
-
         if (answer.get() == yes) {
             Platform.exit();
             System.out.println("You have quit game.");

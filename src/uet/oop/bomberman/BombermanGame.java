@@ -65,8 +65,9 @@ public class BombermanGame {
     public static final String GAMEOVERINFO_LOSE = "LOSE";
     public static final String GAMEOVERINFO_WIN = "WIN";
     public static final String GAMEOVERINFO_LEVELUP = "LEVELUP";
+    public static final String GAMEOVERINFO_INGAME = "INGAME";
 
-    public String GAMEOVERINFO;
+    public static String GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
 
     public Scene startGame(Stage stage) {
         stage.setTitle("Bomberman Go!");
@@ -242,25 +243,27 @@ public class BombermanGame {
     }
 
     public void update() {
-        bomber.update();
-        updateEnemy();
-        items.forEach(Entity::update);
-        map.forEach(Entity::update);
-        updateItem();
-        if (portal != null) portal.update();
-        updateMap();
-        passThisLevelOrLose();
+        if (GAMEOVERINFO.equals(GAMEOVERINFO_INGAME)) {
+            bomber.update();
+            updateEnemy();
+            items.forEach(Entity::update);
+            map.forEach(Entity::update);
+            updateItem();
+            if (portal != null) portal.update();
+            updateMap();
+            passThisLevelOrLose();
+        }
     }
-
     public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        map.forEach(g -> g.render(gc));
-        items.forEach(g -> g.render(gc));
-        if (portal != null) portal.render(gc);
-        enemies.forEach(g -> g.render(gc));
-        bomber.render(gc);
+        if (GAMEOVERINFO.equals(GAMEOVERINFO_INGAME)) {
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            map.forEach(g -> g.render(gc));
+            items.forEach(g -> g.render(gc));
+            if (portal != null) portal.render(gc);
+            enemies.forEach(g -> g.render(gc));
+            bomber.render(gc);
+        }
     }
-
     public int getFPS() {
         return FPS;
     }
@@ -310,6 +313,7 @@ public class BombermanGame {
             GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
             if (level > 2) {
                 GAMEOVERINFO = GAMEOVERINFO_WIN;
+                //System.out.println(GAMEOVERINFO);
                 playMedia(winGameSound);
                 timeLoadImage = FPS * 3;
                 System.out.println("Well done, you won this game. Your score: " + this.point);
@@ -333,7 +337,7 @@ public class BombermanGame {
     private void updateGameInfoImage() {
         Image inforImage = null;
         if (GAMEOVERINFO.equals(GAMEOVERINFO_LOSE)) {
-            if (timeLoadImage > 0) {
+            if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }
             try {
@@ -343,7 +347,7 @@ public class BombermanGame {
             }
             if (timeLoadImage >= 0) gc.drawImage(inforImage, 0, 0);
         } else if (GAMEOVERINFO.equals(GAMEOVERINFO_WIN)) {
-            if (timeLoadImage > 0) {
+            if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }
             try {
@@ -353,13 +357,19 @@ public class BombermanGame {
             }
             if (timeLoadImage >= 0) gc.drawImage(inforImage, 0 , 0);
         } else if (GAMEOVERINFO.equals(GAMEOVERINFO_LEVELUP)) {
-            if (timeLoadImage > 0) {
+            if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }
             try {
                  inforImage = new Image(new FileInputStream("Resources/image/levelUpImage.jpg"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            }
+            if (timeLoadImage > 0) {
+                gc.drawImage(inforImage, 0, 0);
+            }
+            if (timeLoadImage == 0) {
+                GAMEOVERINFO = GAMEOVERINFO_INGAME;
             }
         }
     }
