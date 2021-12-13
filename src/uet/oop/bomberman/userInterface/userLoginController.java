@@ -27,7 +27,7 @@ public class userLoginController extends HomePageController implements Initializ
 
     public static BombermanGame bombermanGame = new BombermanGame();
 
-    private String username;
+    public static String username;
 
     public void setStartButton() {
         introMusic.stop();
@@ -50,7 +50,7 @@ public class userLoginController extends HomePageController implements Initializ
         });
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return this.username;
     }
 }

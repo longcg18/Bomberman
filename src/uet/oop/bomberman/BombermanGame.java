@@ -27,6 +27,7 @@ import uet.oop.bomberman.entities.character.enemy.Doll;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.userInterface.Main;
+import uet.oop.bomberman.userInterface.Player;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,6 +44,7 @@ import static uet.oop.bomberman.Sound.Sound.playMedia;
 import static uet.oop.bomberman.Sound.Sound.loseGameSound;
 import static uet.oop.bomberman.Sound.Sound.winGameSound;
 
+import static uet.oop.bomberman.userInterface.userLoginController.username;
 import static uet.oop.bomberman.userInterface.Main.*;
 
 public class BombermanGame {
@@ -319,6 +321,7 @@ public class BombermanGame {
                 playMedia(winGameSound);
                 timeLoadImage = FPS * 3;
                 System.out.println("Well done, you won this game. Your score: " + this.point);
+                playerList.add(new Player(username, point));
                 return;
             }
             playMedia(winGameSound);
@@ -329,6 +332,7 @@ public class BombermanGame {
             System.out.println("You won!");
         } else if (bomber.maxLife == 0) {
             GAMEOVERINFO = GAMEOVERINFO_LOSE;
+            playerList.add(new Player(username, point));
             playMedia(loseGameSound);
             timeLoadImage = FPS * 3;
             System.out.println("You have lost. Your score: " + this.point);
