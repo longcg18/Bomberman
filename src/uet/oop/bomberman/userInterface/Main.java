@@ -87,7 +87,7 @@ public class Main extends Application {
     public static void loadHomePage(Stage stage) throws IOException {
         playMusic(introMusic);
         stage.setResizable(false);
-        stage.setTitle("BOMBERMAN UET");
+        stage.setTitle("BOMBERMAN GO!");
         stage.setScene(homeScene);
         stage.show();
     }

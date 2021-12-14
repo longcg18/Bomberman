@@ -7,3 +7,5 @@ longcg				600
 longcga				0
 longcg				600
 dwefwef				670
+longCG16				0
+longcg16				600

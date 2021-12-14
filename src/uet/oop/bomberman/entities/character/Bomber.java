@@ -156,14 +156,14 @@ public class Bomber extends Character {
     }
 
     /**
-     * Reset life of bomber
+     * Reset life of bomber after pass 1 level.
      */
     public static void reset() {
         maxLife = 3;
     }
 
     /**
-     * Load image if bomber died
+     * Load image if bomber died.
      */
     public void loadDestroyImage() {
         if (timeDeathLoading == 0) {
@@ -174,7 +174,6 @@ public class Bomber extends Character {
     }
 
     /**
-     *
      * @param graphicsContext: render piece of image to (x, y) in the scene
      */
     public void render(GraphicsContext graphicsContext) {
