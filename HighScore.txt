@@ -1,0 +1,7 @@
+
+
+USERNAME            POINT
+dfsdf				300
+longcg16				100
+longcg				370
+longcg16				840

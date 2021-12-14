@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uet.oop.bomberman.BombermanGame;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -51,6 +52,6 @@ public class userLoginController extends HomePageController implements Initializ
     }
 
     public static String getUsername() {
-        return this.username;
+        return username;
     }
 }

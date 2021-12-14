@@ -154,7 +154,7 @@ public class Bomber extends Character {
     }
 
     /**
-     * reset life of bomber
+     * Reset life of bomber
      */
     public static void reset() {
         maxLife = 3;

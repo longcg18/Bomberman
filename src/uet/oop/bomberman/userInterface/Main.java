@@ -7,25 +7,55 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static uet.oop.bomberman.Sound.Sound.*;
+import static uet.oop.bomberman.BombermanGame.point;
+import static uet.oop.bomberman.userInterface.userLoginController.username;
 
 public class Main extends Application {
 
     public static Scene homeScene = showScene("src/uet/oop/bomberman/userInterface/HomePage.fxml");
     public static Scene userLoginScene = showScene("src/uet/oop/bomberman/userInterface/userLogin.fxml");
 
-    public static List<Player> playerList;
-
     public static void main(String[] args) {
-        playerList = new java.util.ArrayList<>();
         Platform.setImplicitExit(false);
         Application.launch(Main.class);
     }
 
+    public static void addHistoryPlay(String name, int point) {
+        String url = "HighScore.txt";
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter = null;
+        BufferedWriter bufferedWriter = null;
+        List<String> contentLine = new ArrayList<>();
+        try {
+            fileReader = new FileReader(url);
+            bufferedReader = new BufferedReader(fileReader);
+            String getLine;
+            while ((getLine = bufferedReader.readLine()) != null) {
+                contentLine.add(getLine);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fileWriter = new FileWriter(url);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < contentLine.size(); i++) {
+                bufferedWriter.write("\n"+ contentLine.get(i));
+            }
+            bufferedWriter.write("\n" + name + "\t\t\t\t" + point);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static Scene showScene(String url) {
         FXMLLoader fxmlLoader = null;
         try {

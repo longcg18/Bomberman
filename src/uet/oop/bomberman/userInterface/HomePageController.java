@@ -34,9 +34,6 @@ public class HomePageController implements Initializable {
     @FXML
     private Button exitButton;
 
-    @FXML
-    private Button highScoreButton;
-
     public void setPlayButton() throws IOException {
         Stage stage = (Stage) playButton.getScene().getWindow();
         stage.setTitle("Enter your name");
