@@ -32,7 +32,7 @@ public class userLoginController extends HomePageController implements Initializ
 
     public void setStartButton() {
         introMusic.stop();
-        
+        playMusic(playMusicInGame);
         username = userName.getText();
         Stage stage = (Stage) startButton.getScene().getWindow();
         Scene scene = bombermanGame.startGame(stage);

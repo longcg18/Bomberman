@@ -32,12 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static uet.oop.bomberman.Sound.Sound.*;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 import static uet.oop.bomberman.entities.character.Bomber.*;
-
-import static uet.oop.bomberman.Sound.Sound.playMedia;
-import static uet.oop.bomberman.Sound.Sound.loseGameSound;
-import static uet.oop.bomberman.Sound.Sound.winGameSound;
 
 import static uet.oop.bomberman.userInterface.userLoginController.username;
 import static uet.oop.bomberman.userInterface.Main.*;
@@ -319,15 +316,14 @@ public class BombermanGame {
             GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
             if (level > 3) {
                 GAMEOVERINFO = GAMEOVERINFO_WIN;
-                System.out.println(username + " " + point);
-                    addHistoryPlay(username, point);
-
                 playMedia(winGameSound);
+                System.out.println(username + " " + point);
+                //addHistoryPlay(username, point);
                 timeLoadImage = FPS * 3;
                 System.out.println("Well done, you won this game. Your score: " + this.point);
                 return;
             }
-            playMedia(winGameSound);
+            //playMedia(winGameSound);
             bomber.reset();
             bomber.clearBom();
             items.clear();
@@ -349,6 +345,7 @@ public class BombermanGame {
         Image inforImage = null;
         // LOSE
         if (GAMEOVERINFO.equals(GAMEOVERINFO_LOSE)) {
+            playMusicInGame.stop();
             if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }
@@ -360,6 +357,8 @@ public class BombermanGame {
             if (timeLoadImage >= 0) gc.drawImage(inforImage, 0, 0);
             // WIN
         } else if (GAMEOVERINFO.equals(GAMEOVERINFO_WIN)) {
+
+            playMusicInGame.stop();
             if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }
