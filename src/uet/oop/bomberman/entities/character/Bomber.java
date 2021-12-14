@@ -14,6 +14,7 @@ import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 import static uet.oop.bomberman.Sound.Sound.*;
 import static uet.oop.bomberman.Sound.Sound.bomberDieSound;
+import static uet.oop.bomberman.Sound.Sound.plantBombSound;
 
 public class Bomber extends Character {
 
@@ -150,6 +151,7 @@ public class Bomber extends Character {
                 return;
             }
         }
+        playMedia(plantBombSound);
         bom.add(new Bomb(ux, uy, Sprite.bomb.getFxImage()));
     }
 

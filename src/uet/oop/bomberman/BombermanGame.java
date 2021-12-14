@@ -316,6 +316,7 @@ public class BombermanGame {
             GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
             if (level > 3) {
                 GAMEOVERINFO = GAMEOVERINFO_WIN;
+                //
                 playMedia(winGameSound);
                 System.out.println(username + " " + point);
                 //addHistoryPlay(username, point);
@@ -357,8 +358,8 @@ public class BombermanGame {
             if (timeLoadImage >= 0) gc.drawImage(inforImage, 0, 0);
             // WIN
         } else if (GAMEOVERINFO.equals(GAMEOVERINFO_WIN)) {
-
             playMusicInGame.stop();
+
             if (timeLoadImage >= 0) {
                 timeLoadImage--;
             }

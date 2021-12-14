@@ -11,8 +11,9 @@ public class Sound {
     public final static Media intro = new Media(new File("Resources/gamesounds/intro.mp3").toURI().toString());
     public final static Media bomberDi = new Media(new File("Resources/gamesounds/OiDoiOi.mp3").toURI().toString());
     public final static Media loseGame = new Media(new File("Resources/gamesounds/loseGame.wav").toURI().toString());
-    public final static Media winGame = new Media(new File("Resources/gamesounds/winGame.mp3").toURI().toString());
-    public final static Media musicInGame = new Media(new File("Resources/gamesounds/victory.mp3").toURI().toString());
+    public final static Media winGame = new Media(new File("Resources/gamesounds/victory.mp3").toURI().toString());
+    public final static Media musicInGame = new Media(new File("Resources/gamesounds/gameSound.mp3").toURI().toString());
+    public final static Media plantBomb = new Media(new File("Resources/gamesounds/plantBomb.mp3").toURI().toString());
 
     public final static MediaPlayer bombExplosionSound = new MediaPlayer(bombExplosion);
     public final static MediaPlayer getItemSound = new MediaPlayer(getItem);
@@ -21,6 +22,7 @@ public class Sound {
     public final static MediaPlayer loseGameSound = new MediaPlayer(loseGame);
     public final static MediaPlayer winGameSound = new MediaPlayer(winGame);
     public final static MediaPlayer playMusicInGame = new MediaPlayer(musicInGame);
+    public final static MediaPlayer plantBombSound = new MediaPlayer(plantBomb);
 
     public static void playMedia(MediaPlayer mp) {
         mp.play();
