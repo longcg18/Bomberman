@@ -8,7 +8,7 @@ import java.io.File;
 public class Sound {
     public final static Media bombExplosion = new Media(new File("Resources/gamesounds/bombexplosion.mp3").toURI().toString());
     public final static Media getItem = new Media(new File("Resources/gamesounds/getItemSound.wav").toURI().toString());
-    public final static Media intro = new Media(new File("Resources/gamesounds/intro.mp3").toURI().toString());
+    public final static Media intro = new Media(new File("Resources/gamesounds/introMusic.mp3").toURI().toString());
     public final static Media bomberDi = new Media(new File("Resources/gamesounds/OiDoiOi.mp3").toURI().toString());
     public final static Media loseGame = new Media(new File("Resources/gamesounds/loseGame.wav").toURI().toString());
     public final static Media winGame = new Media(new File("Resources/gamesounds/victory.mp3").toURI().toString());
