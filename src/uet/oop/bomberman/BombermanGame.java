@@ -159,10 +159,8 @@ public class BombermanGame {
             }
         });
         scene.setOnKeyReleased((KeyEvent key) -> bomber.Standing());
-
         timer.start();
         return scene;
-        //stage.show();
     }
 
     public void createMap() {
@@ -339,9 +337,7 @@ public class BombermanGame {
         } else if (bomber.maxLife == 0) {
             GAMEOVERINFO = GAMEOVERINFO_LOSE;
             System.out.println(username + " " + point);
-
-                addHistoryPlay(username, point);
-
+            addHistoryPlay(username, point);
             playMedia(loseGameSound);
             timeLoadImage = FPS * 3;
             System.out.println("You have lost. Your score: " + this.point);
@@ -357,7 +353,7 @@ public class BombermanGame {
                 timeLoadImage--;
             }
             try {
-                inforImage = new Image(new FileInputStream("Resources/image/lose.png"));
+                inforImage = new Image(new FileInputStream("Resources/image/loseGame.jpg"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -368,7 +364,7 @@ public class BombermanGame {
                 timeLoadImage--;
             }
             try {
-                inforImage = new Image(new FileInputStream("Resources/image/winner.png"));
+                inforImage = new Image(new FileInputStream("Resources/image/winGame.jpg"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -379,7 +375,7 @@ public class BombermanGame {
                 timeLoadImage--;
             }
             try {
-                String url = "Resources/image/level" + level + ".png";
+                String url = "Resources/image/level" + level + ".jpg";
                 inforImage = new Image(new FileInputStream(url));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

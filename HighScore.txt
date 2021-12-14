@@ -1,7 +1,8 @@
-
-
 USERNAME            POINT
 dfsdf				300
 longcg16				100
 longcg				370
 longcg16				840
+longcg				600
+longcga				0
+longcg				600

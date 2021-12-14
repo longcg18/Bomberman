@@ -47,7 +47,8 @@ public class Main extends Application {
         try {
             fileWriter = new FileWriter(url);
             bufferedWriter = new BufferedWriter(fileWriter);
-            for (int i = 0; i < contentLine.size(); i++) {
+            bufferedWriter.write(contentLine.get(0));
+            for (int i = 1; i < contentLine.size(); i++) {
                 bufferedWriter.write("\n"+ contentLine.get(i));
             }
             bufferedWriter.write("\n" + name + "\t\t\t\t" + point);

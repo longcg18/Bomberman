@@ -15,7 +15,7 @@ public class Oneal extends Enemy {
 
     public Oneal(int x, int y, Image image) {
         super(x, y, image);
-        velocity = SCALED_SIZE / 4;
+        velocity = SCALED_SIZE / 8;
         movingState = MovingState.RIGHT;
         point = 70;
     }
@@ -38,7 +38,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void loadDestroyImage() {
-        if (timeDeathLoading == 0) {
+        if (timeDeathLoading == 0 || !movable) {
             alive = false;
         }
         image = Sprite.oneal_dead.getFxImage();
