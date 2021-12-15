@@ -31,9 +31,9 @@ public class Doll extends Enemy {
     }
 
     public void changeSpeed() {
-        int sp1 = SCALED_SIZE / 12;
-        int sp2 = SCALED_SIZE / 6;
-        int sp3 = SCALED_SIZE / 3;
+        int sp1 = SCALED_SIZE / 16;
+        int sp2 = SCALED_SIZE / 8;
+        int sp3 = SCALED_SIZE / 4;
 
         int rand = (int) (Math.random() * 3 + 1);
         timeChangeSpeed--;
