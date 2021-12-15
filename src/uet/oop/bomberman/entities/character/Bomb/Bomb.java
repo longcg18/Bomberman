@@ -19,13 +19,41 @@ import static uet.oop.bomberman.Sound.Sound.playMedia;
 import static uet.oop.bomberman.BombermanGame.*;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 
+/**
+ * Bomb class, manage bomb and what's related to it
+ * Vie: lớp bomb, quản lý những gì liên quan đến bom
+ */
 public class Bomb extends Entity implements Destroy {
+    /**
+     * Exploded?
+     * isExploding?
+     * time Exist when it's planted
+     * time Explode
+     *
+     * Vie:
+     * Đã nổ?
+     * Đang nổ?
+     * Thời gian tồn tại sau khi đặt
+     * Thời gian nổ
+     */
     public boolean exploded;
     public boolean isExploding;
     private int timeExist = FPS * 3;
     private int timeExplode = FPS;
 
-    // Current max length if not stuck with in wall
+    /**
+     * Length of flame: 1
+     * present length of flame: 1
+     *
+     * 4 different directions when exploding.
+     *
+     * Vie:
+     * chiều dài của lửa: 1 (chỉ biết khi bom nổ)
+     * chiều dài hiện tại của lửa: 1
+     * (Giả sử nhặt được Item tăng lửa, thì chiều dài hiện tại của lửa sẽ tăng lên trước)
+     *
+     *
+     */
     private int flameLength = 1;
     public static int presentFlameLength = 1;
     private final Flame flameUp;
@@ -33,14 +61,24 @@ public class Bomb extends Entity implements Destroy {
     private final Flame flameLeft;
     private final Flame flameRight;
 
-    // Actual length
+    /**
+     * Actual length of each direction
+     */
     private int upLength;
     private int downLength;
     private int leftLength;
     private int rightLength;
 
-    public Bomb(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
+    /**
+     *
+     * @param x: x coordinate
+     * @param y: y coordinate
+     * @param image: Bomb's image
+     *
+     *
+     */
+    public Bomb(int x, int y, Image image) {
+        super(x, y, image);
         exploded = false;
         isExploding = false;
         flameLength = presentFlameLength;
@@ -48,16 +86,19 @@ public class Bomb extends Entity implements Destroy {
         downLength = setLengthFlame(MovingState.DOWN);
         leftLength = setLengthFlame(MovingState.LEFT);
         rightLength = setLengthFlame(MovingState.RIGHT);
-        flameUp = new Flame(xUnit, yUnit - 1, Sprite.explosion_vertical_top_last.getFxImage(), upLength, MovingState.UP);
-        flameDown = new Flame(xUnit, yUnit + 1, Sprite.explosion_vertical_down_last.getFxImage(), downLength, MovingState.DOWN);
-        flameLeft = new Flame(xUnit - 1, yUnit, Sprite.explosion_horizontal_left_last.getFxImage(), leftLength, MovingState.LEFT);
-        flameRight = new Flame(xUnit + 1, yUnit, Sprite.explosion_horizontal_right_last.getFxImage(), rightLength, MovingState.RIGHT);
+        flameUp = new Flame(x, y - 1, Sprite.explosion_vertical_top_last.getFxImage(), upLength, MovingState.UP);
+        flameDown = new Flame(x, y + 1, Sprite.explosion_vertical_down_last.getFxImage(), downLength, MovingState.DOWN);
+        flameLeft = new Flame(x - 1, y, Sprite.explosion_horizontal_left_last.getFxImage(), leftLength, MovingState.LEFT);
+        flameRight = new Flame(x + 1, y, Sprite.explosion_horizontal_right_last.getFxImage(), rightLength, MovingState.RIGHT);
     }
 
     public static void increaseLength() {
         if (presentFlameLength <= Flame.maxLength) presentFlameLength++;
     }
 
+    public static void resetFlameLength() {
+        presentFlameLength = 1;
+    }
     @Override
     public void update() {
 

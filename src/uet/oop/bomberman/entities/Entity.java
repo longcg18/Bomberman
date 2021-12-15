@@ -43,7 +43,7 @@ public abstract class Entity {
     }
 
     /**
-     * @return java.awt rectangle
+     * @return java.awt rectangle surrounding entity.
      */
     public Rectangle getRectangle() {
         return new Rectangle(x, y, SCALED_SIZE, SCALED_SIZE);

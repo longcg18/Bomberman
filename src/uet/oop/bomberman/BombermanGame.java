@@ -64,8 +64,6 @@ public class BombermanGame {
     public static final String GAMEOVERINFO_LEVELUP = "LEVELUP";
     public static final String GAMEOVERINFO_INGAME = "INGAME";
 
-
-
     public static String GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
 
     public BombermanGame() {}
@@ -160,6 +158,9 @@ public class BombermanGame {
         return scene;
     }
 
+    /**
+     * Create map.
+     */
     public void createMap() {
         try {
             String path = "Resources/levels/Level" + level + ".txt";
@@ -245,6 +246,9 @@ public class BombermanGame {
         }
     }
 
+    /**
+     * update anything: bomber, items, map, status.
+     */
     public void update() {
         if (GAMEOVERINFO.equals(GAMEOVERINFO_INGAME)) {
             bomber.update();
@@ -257,6 +261,10 @@ public class BombermanGame {
             passThisLevelOrLose();
         }
     }
+
+    /**
+     * render if in a level.
+     */
     public void render() {
         if (GAMEOVERINFO.equals(GAMEOVERINFO_INGAME)) {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -271,6 +279,9 @@ public class BombermanGame {
         return FPS;
     }
 
+    /**
+     * update map
+     */
     private void updateMap() {
         int n = map.size();
         for (int j = 0; j < n; j++) {
@@ -316,11 +327,10 @@ public class BombermanGame {
             GAMEOVERINFO = GAMEOVERINFO_LEVELUP;
             if (level > 3) {
                 GAMEOVERINFO = GAMEOVERINFO_WIN;
-                //
                 playMedia(winGameSound);
                 System.out.println(username + " " + point);
                 //addHistoryPlay(username, point);
-                timeLoadImage = FPS * 3;
+                timeLoadImage = FPS * 5;
                 System.out.println("Well done, you won this game. Your score: " + this.point);
                 return;
             }
@@ -342,6 +352,9 @@ public class BombermanGame {
 
     }
 
+    /**
+     * update Game info image after play a level (or lose)
+     */
     private void updateGameInfoImage() {
         Image inforImage = null;
         // LOSE

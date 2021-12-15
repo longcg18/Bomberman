@@ -15,7 +15,7 @@ import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 import static uet.oop.bomberman.Sound.Sound.*;
 import static uet.oop.bomberman.Sound.Sound.bomberDieSound;
 import static uet.oop.bomberman.Sound.Sound.plantBombSound;
-
+import static uet.oop.bomberman.entities.character.Bomb.Bomb.resetFlameLength;
 public class Bomber extends Character {
 
     private final int maxNumberOfBombs = 4;
@@ -160,6 +160,7 @@ public class Bomber extends Character {
      */
     public static void reset() {
         maxLife = 3;
+        resetFlameLength();
     }
 
     /**

@@ -9,6 +9,10 @@ import static uet.oop.bomberman.BombermanGame.enemies;
 import javafx.scene.image.Image;
 
 public abstract class Enemy extends Character {
+    /**
+     * Point after it's killed
+     * Vie: số điểm sau khi bị giết
+     */
     protected int point;
 
     public Enemy(int x, int y, Image image) {
@@ -17,6 +21,10 @@ public abstract class Enemy extends Character {
 
     public abstract void changeMovingState();
 
+    /**
+     * Check collision with other enemies. if 2 enemies meet, they will reverse moves
+     * Vie: Hàm này kiểm tra va chạm giữa các 2 quân địch, nếu 2 quân địch gặp nhau, chúng sẽ đi ngược lại
+     */
     protected void checkCollisionEnemy() {
         for (int i = 0; i < enemies.size(); i++) {
             Enemy e = (Enemy) enemies.get(i);
@@ -31,10 +39,17 @@ public abstract class Enemy extends Character {
         }
     }
 
+    /**
+     * @return point after kill an enemy
+     */
     public int getPoint() {
         return point;
     }
 
+    /**
+     * Set a random moving state for enemies.
+     * Vie: Cài đặt trạng thái di chuyển mặc định cho quân địch.
+     */
     protected void randomMovingState() {
         if (!alive || deathLoading) return;
         movingState = MovingState.random();
@@ -43,6 +58,11 @@ public abstract class Enemy extends Character {
         }
     }
 
+
+    /**
+     * Reverse Moving State funtion is used to reverse moving state 1 enemy
+     * Vie: Hàm này sẽ đảo ngược trạng thái di chuyển hiện tại của một quân địch
+     */
     protected void reverseMovingState() {
         if (!alive || deathLoading) return;
         switch (movingState) {
@@ -61,6 +81,14 @@ public abstract class Enemy extends Character {
         }
     }
 
+    /**
+     * If an enemy die, load it's destroy image
+     * else keep moving, check collision with other enemies, bombs, and update moving image.
+     *
+     * Vie: Nếu quân địch chết, tải hình ảnh bị chết của nó
+     * nếu không: tiếp tục di chuyển, kiểm tra va chạm với các quân địch khác, bom, sau đó tải hình ảnh đang di chuyển
+     * của nó
+     */
     @Override
     public void update() {
         if (deathLoading) {

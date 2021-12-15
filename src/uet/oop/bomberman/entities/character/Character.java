@@ -106,7 +106,6 @@ public abstract class Character extends Entity implements Destroy, Move {
         Rectangle rec = null;
         Entity map1 = null;
         Entity map2 = null;
-
         int D = SCALED_SIZE / 4;
         switch (movingState) {
             case UP:
@@ -225,7 +224,7 @@ public abstract class Character extends Entity implements Destroy, Move {
         }
 
 
-        // Check collision with unexplode bomb
+        // Check collision with unExploded bomb
         rec = new Rectangle(x, y, SCALED_SIZE, SCALED_SIZE);
         for (int i = 0; i < bom.size(); i++) {
             if (!CollisionTest(rec, bom.get(i).getRectangle())) {
